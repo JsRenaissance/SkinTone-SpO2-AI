@@ -15,20 +15,26 @@
 ## 🛠 2. 기술 스택 (Tech Stack)
 
 ### 💻 Hardware & Edge AI
-<img src="https://img.shields.io/badge/Arduino UNO R4 WiFi-00979D?style=for-the-badge&logo=Arduino&logoColor=white"> <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white">
-- **Sensors:** `MAX30102` (산소포화도/심박수), `TCS34725` (RGB 컬러 센서)
+<img src="https://img.shields.io/badge/Arduino%20UNO%20R4%20WiFi-00979D?style=for-the-badge&logo=arduino&logoColor=white"> <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white">
+- **Arduino UNO R4 WiFi & C++:** 파이썬에서 추출한 Edge AI 수식(가중치)을 하드코딩하여 딜레이 없이 실시간으로 계산하고, 내장된 블루투스 모듈로 스마트폰과 데이터를 주고받습니다.
+- **MAX30102:** 빛의 반사를 이용해 혈류량과 산소포화도(SpO2) 원시 데이터를 수집하는 메인 광학 센서입니다.
+- **TCS34725:** 피부에 빛을 쏘아 정밀한 RGB(빨강, 초록, 파랑) 비율을 읽어내어 AI의 피부톤 판별 재료로 사용되는 컬러 센서입니다.
 
 ### 🧠 AI & Data Modeling
-<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"> <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"> <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">
-- **Dataset:** `11K-Hands Dataset` (11,000명의 손 이미지 피부톤 라벨링 데이터)
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"> <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">
+- **11K-Hands Dataset:** 피부톤(Skin Color) 라벨링이 완료된 11,000명의 손 이미지 오픈소스 데이터셋입니다.
+- **Python & Scikit-learn:** 무거운 딥러닝 대신 가벼운 '다중 선형 회귀' 알고리즘을 학습시켜, 아두이노 메모리에 쏙 들어갈 수 있는 최적의 오차 보정 공식(가중치)을 뽑아냅니다.
 
 ### 📱 Frontend (Android App)
-<img src="https://img.shields.io/badge/Android Studio-3DDC84?style=for-the-badge&logo=Android Studio&logoColor=white"> <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=white"> <img src="https://img.shields.io/badge/BLE 통신-0082FC?style=for-the-badge&logo=Bluetooth&logoColor=white">
+<img src="https://img.shields.io/badge/Android%20Studio-3DDC84?style=for-the-badge&logo=androidstudio&logoColor=white"> <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/BLE%20%ED%86%B5%EC%8B%A0-0082FC?style=for-the-badge&logo=bluetooth&logoColor=white">
+- **Android Native (Java):** 아두이노에서 보정한 산소포화도 수치를 블루투스(BLE)로 받아, 실시간 심장 애니메이션과 함께 직관적인 화면으로 띄워주는 모바일 앱입니다.
+- **Retrofit2 통신:** 측정이 완전히 끝나면 스마트폰의 인터넷망을 이용해 최종 결과를 백엔드 서버로 안전하게 전송합니다.
 
 ### ⚙️ Backend & Database
-<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white">
-
-<br>
+<img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/AWS%20EC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white">
+- **Spring Boot (REST API):** 안드로이드 앱에서 보내는 측정 데이터를 받아 무결성을 검사하는 전용 접수처(API) 서버입니다.
+- **MySQL:** 수신된 건강 기록(심박수, 산소포화도)을 체계적이고 영구적으로 쌓아두는 데이터베이스입니다.
+- **AWS EC2:** 시연 중에도 서버가 24시간 안정적으로 돌아갈 수 있도록 구축한 클라우드 가상 서버 환경입니다.
 
 ## 🏛 3. 시스템 아키텍처 (System Architecture)
 
