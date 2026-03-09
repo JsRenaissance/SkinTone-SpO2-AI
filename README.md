@@ -36,19 +36,19 @@
 
 ```mermaid
 graph TD
-    subgraph Edge AI (Arduino UNO R4)
-        TCS34725[TCS34725 RGB 센서] -->|피부톤 RGB 측정| EdgeAI{C++ 하드코딩된<br/>가중치 수식 연산}
-        EdgeAI -->|피부톤 보정 계수| Calc[SpO2/BPM 최종 연산]
+    subgraph Edge_AI ["Edge AI (Arduino UNO R4)"]
+        TCS34725[TCS34725 RGB 센서] -->|피부톤 RGB 측정| EdgeAI_Calc{C++ 하드코딩된<br/>가중치 수식 연산}
+        EdgeAI_Calc -->|피부톤 보정 계수| Calc[SpO2/BPM 최종 연산]
         MAX30102[MAX30102 센서] -->|적외선/적색광| Calc
-        Calc --> BLE[BLE 모듈 (GATT)]
+        Calc --> BLE[BLE 모듈 GATT]
     end
 
-    subgraph Android App
+    subgraph Android_App ["Android App"]
         BLE -->|실시간 데이터 수신| App[측정 화면 UI]
         App -->|측정 완료| HTTP[Retrofit2 API 통신]
     end
 
-    subgraph Spring Boot Server
+    subgraph Spring_Boot ["Spring Boot Server"]
         HTTP -->|POST /api/measurements| API[REST API 접수처]
         API --> DB[(MySQL 기록 저장)]
     end
