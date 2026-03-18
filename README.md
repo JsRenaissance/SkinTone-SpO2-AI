@@ -50,7 +50,7 @@
 
 전체 시스템은 **데이터 수집(하드웨어) ➔ 실시간 표출(안드로이드) ➔ 데이터 적재(스프링 서버)**의 3계층 파이프라인으로 구성되어 있습니다.
 
-```mermaid
+```mermaid**
 graph TD
     subgraph Edge_AI ["Edge AI (Arduino UNO R4)"]
         TCS34725[TCS34725 RGB 센서] -->|피부톤 RGB 측정| EdgeAI_Calc{C++ 하드코딩된<br/>가중치 수식 연산}
@@ -67,7 +67,7 @@ graph TD
     subgraph Spring_Boot ["Spring Boot Server"]
         HTTP -->|POST /api/measurements| API[REST API 접수처]
         API --> DB[(MySQL 기록 저장)]
-    end```
+    end**
 <br>
 ## 🏛 4. 하드웨어 설계 (Hardware structure)
 ![설계도](https://github.com/user-attachments/assets/30543682-d0e7-4d8f-a203-b2ff85474214)
