@@ -67,7 +67,7 @@ graph TD
     subgraph Spring_Boot ["Spring Boot Server"]
         HTTP -->|POST /api/measurements| API[REST API 접수처]
         API --> DB[(MySQL 기록 저장)]
-    end
+    end```
 <br>
 ## 🏛 4. 하드웨어 설계 (Hardware structure)
 ![설계도](https://github.com/user-attachments/assets/30543682-d0e7-4d8f-a203-b2ff85474214)
