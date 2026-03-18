@@ -68,3 +68,25 @@ graph TD
         HTTP -->|POST /api/measurements| API[REST API 접수처]
         API --> DB[(MySQL 기록 저장)]
     end
+
+## 🏛 4. 하드웨어 설계 (Hardware structure)
+![설계도](https://github.com/user-attachments/assets/30543682-d0e7-4d8f-a203-b2ff85474214)
+부품 목록:
+아두이노 우노 R4 wifi x1
+산소포화도 측정 모듈 MAX 30102 x1
+0.96인치 디스플레이 모듈 x1
+컬러 센서 모듈 TCS34725 x1
+피에조 부저 x1
+푸쉬버튼 x1
+3색 LED x3
+220옴 저항 x3
+830핀 브레드보드 x3
+수수 암암 암수 케이블
+
+설계도:
+설계도에 산소포화도 측정 모듈 MAX 30102, 0.96인치 디스플레이 모듈, 컬러 센서 모듈 TCS34725 미등록으로 인해 임의로 작성
+시각적으로 보기 편하게 만들기 위해 실제 배선배치와 똑같지 않음 
+SCL, SDA는 3개의 모듈 병렬연결
+
+
+    
