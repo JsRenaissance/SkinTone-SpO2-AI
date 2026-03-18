@@ -68,7 +68,7 @@ graph TD
         HTTP -->|POST /api/measurements| API[REST API 접수처]
         API --> DB[(MySQL 기록 저장)]
     end
-```  <-- 이 부분이 빠져있어서 오류가 났던 것입니다.
+```
 
 <br>
 
