@@ -50,11 +50,11 @@
 
 전체 시스템은 **데이터 수집(하드웨어) ➔ 실시간 표출(안드로이드) ➔ 데이터 적재(스프링 서버)**의 3계층 파이프라인으로 구성되어 있습니다.
 
-```mermaid**
+```mermaid
 graph TD
     subgraph Edge_AI ["Edge AI (Arduino UNO R4)"]
-        TCS34725[TCS34725 RGB 센서] -->|피부톤 RGB 측정| EdgeAI_Calc{C++ 하드코딩된<br/>가중치 수식 연산}
-        EdgeAI_Calc -->|피부톤 보정 계수| Calc[SpO2/BPM 최종 연산]
+        TCS34725[TCS34725 RGB 센서] -->|피부톤 RGB 측정| EdgeAI_Calc{C++ 가중치 수식 연산}
+        EdgeAI_Calc -->|보정 계수| Calc[SpO2/BPM 최종 연산]
         MAX30102[MAX30102 센서] -->|적외선/적색광| Calc
         Calc --> BLE[BLE 모듈 GATT]
     end
@@ -67,26 +67,22 @@ graph TD
     subgraph Spring_Boot ["Spring Boot Server"]
         HTTP -->|POST /api/measurements| API[REST API 접수처]
         API --> DB[(MySQL 기록 저장)]
-    end**
+    end
+```  <-- 이 부분이 빠져있어서 오류가 났던 것입니다.
+
 <br>
+
 ## 🏛 4. 하드웨어 설계 (Hardware structure)
 ![설계도](https://github.com/user-attachments/assets/30543682-d0e7-4d8f-a203-b2ff85474214)
-부품 목록:
-아두이노 우노 R4 wifi x1
-산소포화도 측정 모듈 MAX 30102 x1
-0.96인치 디스플레이 모듈 x1
-컬러 센서 모듈 TCS34725 x1
-피에조 부저 x1
-푸쉬버튼 x1
-3색 LED x3
-220옴 저항 x3
-830핀 브레드보드 x3
-수수 암암 암수 케이블
 
-설계도:
-설계도에 산소포화도 측정 모듈 MAX 30102, 0.96인치 디스플레이 모듈, 컬러 센서 모듈 TCS34725 미등록으로 인해 임의로 작성
-시각적으로 보기 편하게 만들기 위해 실제 배선배치와 똑같지 않음 
-SCL, SDA는 3개의 모듈 병렬연결
+### 🔌 부품 목록 (Parts List)
+* **메인 보드:** Arduino UNO R4 WiFi x1
+* **센서:** 산소포화도 측정 모듈(MAX30102) x1, 컬러 센서 모듈(TCS34725) x1
+* **출력/입력:** 0.96인치 OLED 디스플레이 x1, 피에조 부저 x1, 푸쉬버튼 x1, 3색 LED x3
+* **기타:** 220옴 저항 x3, 830핀 브레드보드 x3, 점퍼 케이블(수수/암암/암수)
 
+### 💡 설계 참고사항
+* MAX30102, OLED, TCS34725 모듈은 모두 **I2C 통신**을 사용하므로 **SCL, SDA 핀에 3개의 모듈을 병렬로 연결**합니다.
+* 실제 배선은 시각적 가독성을 위해 설계도 이미지와 차이가 있을 수 있습니다.
 
     
