@@ -137,7 +137,7 @@ $$SpO2_{corrected} = SpO2_{raw} + Offset[Skin\_Tier]$$
 * `/arduino`: 아두이노 메인 스케치 및 AI 판별 함수 (`predictSkinTier.h`).
 * `/android`: 안드로이드 자바 소스 코드.
 * `/backend`: 스프링 부트 서버 소스 코드.
-* [**📊 상세 데이터 분석 리포트 (HTML 확인)**](https://htmlpreview.github.io/?https://github.com/사용자이름/저장소이름/blob/main/11k.html)
+* [**📊 상세 데이터 분석 리포트 (HTML 확인)**](https://htmlpreview.github.io/?https://github.com/JsRenaissance/-/blob/main/11k.html)
 
 <br>
 
