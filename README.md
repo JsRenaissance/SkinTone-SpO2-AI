@@ -85,4 +85,89 @@ graph TD
 * MAX30102, OLED, TCS34725 모듈은 모두 **I2C 통신**을 사용하므로 **SCL, SDA 핀에 3개의 모듈을 병렬로 연결**합니다.
 * 실제 배선은 시각적 가독성을 위해 설계도 이미지와 차이가 있을 수 있습니다.
 
-    
+<br>
+
+## 🧠 5. AI 모델 설계 및 학습 (AI Model & Training)
+
+본 프로젝트의 핵심인 피부톤 판별 알고리즘은 **저사양 엣지 디바이스(Arduino)**에서도 지연 없이 구동될 수 있도록 '데이터 정제'와 '모델 경량화'에 초점을 맞추어 설계되었습니다.
+
+### 🧪 스마트 데이터 전처리 (Preprocessing Pipeline)
+단순 이미지 분석의 한계를 극복하고 센서 실측 환경과의 간극을 좁히기 위해 다음과 같은 고도화된 전처리 공정을 적용했습니다.
+
+* **HSV Skin Masking:** RGB 대비 조명 변화에 강인한 **HSV 색 공간**을 활용하여 피부가 아닌 배경, 그림자, 손톱 영역을 물리적으로 제거했습니다.
+* **Median Feature Extraction:** 픽셀값의 평균(Mean) 대신 **중앙값(Median)**을 취함으로써 사진 내의 미세한 노이즈와 반사광의 간섭을 차단했습니다.
+* **Feature Engineering ($R\_Ratio$):** 절대적인 밝기가 변해도 유지되는 색 구성비 지표인 $R\_Ratio = \frac{R}{R+G+B}$를 추가하여 조명 환경에 대한 강인함(Robustness)을 확보했습니다.
+
+### 🤖 모델 아키텍처 및 최적화 (Model Optimization)
+임베디드 시스템의 자원 제약을 고려하여 **의사결정나무(Decision Tree)** 모델을 채택하고 하드웨어 이식을 위한 최적화를 진행했습니다.
+
+* **분류 체계:** 3-Tier Classification (Fair, Medium, Dark)
+* **최적화 기법:**
+    * **Depth Constraining:** 아두이노의 플래시 메모리 용량을 고려하여 **Max Depth 10**으로 제한.
+    * **Code Generation:** 학습된 트리 구조를 C++의 `if-else` 문으로 자동 번역하여 하드코딩 방식으로 이식.
+
+### 📈 학습 결과 및 성능 지표 (Performance)
+실험을 통해 전처리 및 특성 공학 도입 전후의 성능 차이를 검증했습니다.
+
+| 모델 설정 | 테스트 정확도 (Test Acc) | 비고 |
+| :--- | :---: | :--- |
+| 초기 모델 (Raw RGB) | 약 48.19% | 조명 및 배경 노이즈에 취약 |
+| **최종 채택 모델 (Depth 10)** | **63.31%** | **정확도와 이식성 사이의 최적 밸런스** |
+| 고성능 모델 (Depth 15) | 70.31% | 과적합 및 메모리 초과 위험 |
+
+<br>
+
+## ⚙️ 6. 알고리즘 이식 및 보정 로직 (Implementation)
+
+### ⚖️ 피부톤별 오차 보정 메커니즘
+AI가 판별한 피부톤 티어(Tier)를 기반으로 산소포화도(SpO2) 연산 과정에 동적 보정 계수(Dynamic Offset)를 적용합니다.
+
+$$SpO2_{corrected} = SpO2_{raw} + Offset[Skin\_Tier]$$
+
+* **Tier 1 (Fair):** 멜라닌 영향 적음 $\rightarrow$ 표준 보정값 유지.
+* **Tier 2 (Medium):** 중간 농도 멜라닌 보정 $\rightarrow$ 수치 오차 보정 ($\alpha$).
+* **Tier 3 (Dark):** 고농도 멜라닌에 의한 광 신호 약화 보정 $\rightarrow$ 최대 보정 계수 적용 ($\beta$).
+
+<br>
+
+## 📂 7. 프로젝트 파일 구성 (Repository Structure)
+
+* `main.py`: AI 모델 학습 및 전처리 통합 스크립트.
+* `requirements.txt`: 프로젝트 실행을 위한 Python 라이브러리 목록.
+* `/arduino`: 아두이노 메인 스케치 및 AI 판별 함수 (`predictSkinTier.h`).
+* `/android`: 안드로이드 자바 소스 코드.
+* `/backend`: 스프링 부트 서버 소스 코드.
+* [**📊 상세 데이터 분석 리포트 (HTML 확인)**](https://htmlpreview.github.io/?https://github.com/사용자이름/저장소이름/blob/main/11k.html)
+
+<br>
+
+---
+© 2026 Your Name. All Rights Reserved.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
