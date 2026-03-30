@@ -173,7 +173,7 @@ graph TD
 * `/arduino`: 아두이노 메인 스케치 및 AI 판별 함수 (`predictSkinTier.h`).
 * `/android`: 안드로이드 자바 소스 코드.
 * `/backend`: 스프링 부트 서버 소스 코드.
-* [**📊 상세 데이터 분석 리포트 (HTML 확인)**](https://htmlpreview.github.io/?https://github.com/JsRenaissance/SkinTone-SpO2-AI/blob/main/11kfin.html)
+* [**📊 상세 데이터 분석 리포트 (HTML 확인)**](https://JsRenaissance.github.io/SkinTone-SpO2-AI/11kfin.html)
 
 <br>
 © 2026 Your Name. All Rights Reserved.
