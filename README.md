@@ -428,7 +428,7 @@ int predictSkinTier(float R, float G, float B, float R_Ratio) {
     if (R_Ratio > 0.45) return 1;
     else if (R_Ratio > 0.40) return 2;
     else return 3;
-}'''
+}```
 
 
 
