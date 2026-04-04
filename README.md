@@ -425,9 +425,1647 @@ void setColor(int r, int g, int b) {
 }
 
 int predictSkinTier(float R, float G, float B, float R_Ratio) {
-    if (R_Ratio > 0.45) return 1;
-    else if (R_Ratio > 0.40) return 2;
-    else return 3;
+     if (R_Ratio <= 0.46) {
+    if (R_Ratio <= 0.43) {
+      if (G <= 163.50) {
+        if (R <= 202.50) {
+          if (R_Ratio <= 0.41) {
+            if (R_Ratio <= 0.40) {
+              if (G <= 156.50) {
+                if (R <= 192.50) {
+                  return 1;
+                } else {
+                  return 2;
+                }
+              } else {
+                return 1;
+              }
+            } else {
+              if (G <= 156.50) {
+                if (R <= 195.00) {
+                  return 1;
+                } else {
+                  if (R_Ratio <= 0.40) {
+                    return 1;
+                  } else {
+                    if (B <= 132.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                }
+              } else {
+                if (R <= 196.50) {
+                  return 1;
+                } else {
+                  if (B <= 138.50) {
+                    if (G <= 160.50) {
+                      return 3;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (R <= 201.50) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            }
+          } else {
+            if (R_Ratio <= 0.42) {
+              if (B <= 112.50) {
+                return 2;
+              } else {
+                if (G <= 143.50) {
+                  return 1;
+                } else {
+                  if (R <= 191.50) {
+                    if (G <= 149.50) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (B <= 118.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            } else {
+              if (R <= 184.50) {
+                if (B <= 116.50) {
+                  if (G <= 146.50) {
+                    if (G <= 130.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    return 2;
+                  }
+                } else {
+                  return 2;
+                }
+              } else {
+                if (B <= 128.50) {
+                  if (G <= 152.50) {
+                    if (R <= 198.50) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R <= 197.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (R_Ratio <= 0.42) {
+                    return 2;
+                  } else {
+                    if (R_Ratio <= 0.42) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        } else {
+          if (G <= 159.50) {
+            if (R_Ratio <= 0.42) {
+              if (R_Ratio <= 0.41) {
+                if (B <= 145.00) {
+                  if (B <= 139.50) {
+                    if (R_Ratio <= 0.41) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    return 1;
+                  }
+                } else {
+                  return 2;
+                }
+              } else {
+                if (G <= 151.50) {
+                  if (R <= 211.50) {
+                    if (R <= 203.50) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    return 2;
+                  }
+                } else {
+                  if (R <= 214.50) {
+                    if (R_Ratio <= 0.42) {
+                      return 3;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.42) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  }
+                }
+              }
+            } else {
+              if (R <= 206.50) {
+                if (R <= 204.50) {
+                  if (B <= 124.50) {
+                    if (G <= 155.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (R <= 203.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (B <= 123.50) {
+                    if (R <= 205.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.42) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  }
+                }
+              } else {
+                if (G <= 154.50) {
+                  if (R <= 208.50) {
+                    if (B <= 127.00) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.42) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (R <= 208.50) {
+                    if (G <= 157.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R <= 215.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            }
+          } else {
+            if (R_Ratio <= 0.41) {
+              if (R <= 211.50) {
+                if (B <= 133.50) {
+                  if (B <= 129.50) {
+                    return 2;
+                  } else {
+                    if (B <= 132.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (R <= 203.50) {
+                    if (R_Ratio <= 0.40) {
+                      return 3;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.41) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  }
+                }
+              } else {
+                if (R_Ratio <= 0.41) {
+                  if (R_Ratio <= 0.41) {
+                    if (B <= 147.00) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (G <= 161.50) {
+                      return 3;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (R_Ratio <= 0.41) {
+                    return 1;
+                  } else {
+                    if (R <= 218.50) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            } else {
+              if (R <= 218.50) {
+                if (B <= 124.50) {
+                  if (R_Ratio <= 0.42) {
+                    if (B <= 119.50) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (G <= 161.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (R_Ratio <= 0.42) {
+                    if (R <= 217.50) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (B <= 129.50) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  }
+                }
+              } else {
+                if (R <= 220.50) {
+                  if (R_Ratio <= 0.42) {
+                    if (B <= 144.50) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.42) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (R_Ratio <= 0.42) {
+                    return 1;
+                  } else {
+                    if (R <= 222.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else {
+        if (B <= 129.50) {
+          if (B <= 119.50) {
+            if (R_Ratio <= 0.43) {
+              return 2;
+            } else {
+              return 2;
+            }
+          } else {
+            if (G <= 174.50) {
+              if (R <= 219.50) {
+                if (R <= 211.50) {
+                  if (R <= 207.50) {
+                    if (B <= 128.50) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.42) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (G <= 170.50) {
+                    if (R_Ratio <= 0.42) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.42) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              } else {
+                if (G <= 171.50) {
+                  if (B <= 127.50) {
+                    return 1;
+                  } else {
+                    if (R_Ratio <= 0.42) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  return 1;
+                }
+              }
+            } else {
+              return 2;
+            }
+          }
+        } else {
+          if (R_Ratio <= 0.42) {
+            if (R <= 205.50) {
+              return 1;
+            } else {
+              if (B <= 142.50) {
+                if (G <= 176.50) {
+                  if (R_Ratio <= 0.41) {
+                    if (R_Ratio <= 0.41) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (B <= 137.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  return 1;
+                }
+              } else {
+                if (B <= 165.50) {
+                  if (R <= 223.50) {
+                    if (B <= 153.50) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (B <= 152.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  return 2;
+                }
+              }
+            }
+          } else {
+            if (B <= 134.50) {
+              if (G <= 164.50) {
+                if (B <= 133.50) {
+                  if (B <= 131.50) {
+                    if (R_Ratio <= 0.42) {
+                      return 3;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (R <= 217.50) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  return 2;
+                }
+              } else {
+                if (R <= 220.50) {
+                  if (G <= 169.50) {
+                    if (R_Ratio <= 0.42) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.42) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (G <= 172.00) {
+                    return 2;
+                  } else {
+                    return 1;
+                  }
+                }
+              }
+            } else {
+              if (R_Ratio <= 0.42) {
+                if (R_Ratio <= 0.42) {
+                  if (G <= 165.50) {
+                    return 2;
+                  } else {
+                    if (R <= 219.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (G <= 165.50) {
+                    if (B <= 136.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (G <= 167.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              } else {
+                return 2;
+              }
+            }
+          }
+        }
+      }
+    } else {
+      if (G <= 129.50) {
+        if (R_Ratio <= 0.44) {
+          if (R <= 168.50) {
+            if (R <= 162.50) {
+              return 2;
+            } else {
+              if (R <= 166.50) {
+                if (R_Ratio <= 0.44) {
+                  if (R <= 164.50) {
+                    return 1;
+                  } else {
+                    return 1;
+                  }
+                } else {
+                  if (G <= 127.00) {
+                    return 1;
+                  } else {
+                    if (B <= 86.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                }
+              } else {
+                if (B <= 91.50) {
+                  if (G <= 128.50) {
+                    if (R_Ratio <= 0.44) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    return 1;
+                  }
+                } else {
+                  if (R <= 167.50) {
+                    return 1;
+                  } else {
+                    if (B <= 92.50) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            }
+          } else {
+            if (R_Ratio <= 0.43) {
+              if (B <= 102.50) {
+                if (R_Ratio <= 0.43) {
+                  return 2;
+                } else {
+                  return 2;
+                }
+              } else {
+                if (R_Ratio <= 0.43) {
+                  return 1;
+                } else {
+                  if (G <= 128.50) {
+                    return 1;
+                  } else {
+                    return 2;
+                  }
+                }
+              }
+            } else {
+              if (G <= 128.50) {
+                return 1;
+              } else {
+                return 2;
+              }
+            }
+          }
+        } else {
+          if (R <= 152.50) {
+            return 3;
+          } else {
+            if (B <= 84.50) {
+              if (R <= 167.50) {
+                if (R <= 164.50) {
+                  if (R <= 156.50) {
+                    return 2;
+                  } else {
+                    if (B <= 76.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (B <= 80.50) {
+                    if (G <= 118.00) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.45) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              } else {
+                if (R_Ratio <= 0.45) {
+                  if (G <= 121.50) {
+                    if (B <= 82.50) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R <= 171.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (R_Ratio <= 0.46) {
+                    if (G <= 117.00) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    return 2;
+                  }
+                }
+              }
+            } else {
+              if (R_Ratio <= 0.45) {
+                if (G <= 125.50) {
+                  if (G <= 123.50) {
+                    if (R <= 174.50) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    return 2;
+                  }
+                } else {
+                  if (B <= 103.50) {
+                    if (R <= 168.50) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (B <= 105.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              } else {
+                if (B <= 100.50) {
+                  if (G <= 128.50) {
+                    if (B <= 86.50) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.45) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (R_Ratio <= 0.45) {
+                    return 2;
+                  } else {
+                    if (R_Ratio <= 0.45) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else {
+        if (B <= 117.50) {
+          if (B <= 105.50) {
+            if (R <= 179.50) {
+              if (R_Ratio <= 0.44) {
+                if (R <= 169.50) {
+                  return 1;
+                } else {
+                  if (R_Ratio <= 0.44) {
+                    if (G <= 137.00) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    return 2;
+                  }
+                }
+              } else {
+                if (B <= 93.50) {
+                  if (R_Ratio <= 0.44) {
+                    return 3;
+                  } else {
+                    if (R_Ratio <= 0.45) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (G <= 130.50) {
+                    if (R <= 177.50) {
+                      return 3;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (B <= 96.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                }
+              }
+            } else {
+              if (R <= 203.00) {
+                if (G <= 136.50) {
+                  if (R_Ratio <= 0.45) {
+                    if (R <= 183.50) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (B <= 103.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (R_Ratio <= 0.45) {
+                    if (R_Ratio <= 0.44) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.45) {
+                      return 3;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              } else {
+                if (B <= 102.50) {
+                  return 3;
+                } else {
+                  return 3;
+                }
+              }
+            }
+          } else {
+            if (G <= 142.50) {
+              if (G <= 132.50) {
+                if (R_Ratio <= 0.45) {
+                  if (R_Ratio <= 0.43) {
+                    if (R <= 178.00) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (R <= 187.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (G <= 131.50) {
+                    return 1;
+                  } else {
+                    return 1;
+                  }
+                }
+              } else {
+                if (R <= 193.50) {
+                  if (R_Ratio <= 0.43) {
+                    if (G <= 138.50) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R <= 188.50) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  }
+                } else {
+                  if (R <= 200.50) {
+                    if (G <= 140.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (G <= 141.00) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  }
+                }
+              }
+            } else {
+              if (B <= 111.50) {
+                if (G <= 146.50) {
+                  if (B <= 108.50) {
+                    if (R_Ratio <= 0.44) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.44) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  }
+                } else {
+                  if (R_Ratio <= 0.44) {
+                    if (R_Ratio <= 0.44) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (G <= 147.50) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  }
+                }
+              } else {
+                if (G <= 149.50) {
+                  if (G <= 145.50) {
+                    if (R <= 202.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.43) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (R <= 203.50) {
+                    if (G <= 157.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (G <= 163.50) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        } else {
+          if (G <= 145.50) {
+            if (B <= 122.50) {
+              if (G <= 135.50) {
+                if (R_Ratio <= 0.44) {
+                  if (R_Ratio <= 0.43) {
+                    if (R_Ratio <= 0.43) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    return 1;
+                  }
+                } else {
+                  return 2;
+                }
+              } else {
+                if (G <= 144.50) {
+                  if (R <= 195.50) {
+                    if (R <= 192.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (B <= 119.50) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (B <= 120.50) {
+                    if (B <= 119.50) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R <= 206.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            } else {
+              if (R <= 206.50) {
+                if (R <= 197.50) {
+                  return 1;
+                } else {
+                  if (R <= 199.50) {
+                    return 2;
+                  } else {
+                    if (R_Ratio <= 0.43) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                }
+              } else {
+                if (B <= 125.50) {
+                  if (R_Ratio <= 0.44) {
+                    return 2;
+                  } else {
+                    return 1;
+                  }
+                } else {
+                  return 1;
+                }
+              }
+            }
+          } else {
+            if (G <= 161.50) {
+              if (B <= 127.50) {
+                if (G <= 154.50) {
+                  if (R <= 204.50) {
+                    if (G <= 152.50) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.43) {
+                      return 3;
+                    } else {
+                      return 3;
+                    }
+                  }
+                } else {
+                  if (R <= 213.50) {
+                    if (R <= 210.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.43) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  }
+                }
+              } else {
+                if (G <= 153.50) {
+                  if (G <= 151.50) {
+                    if (B <= 128.50) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (R <= 214.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  if (B <= 132.50) {
+                    if (G <= 159.50) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.43) {
+                      return 3;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            } else {
+              if (B <= 126.50) {
+                if (R_Ratio <= 0.43) {
+                  if (G <= 163.50) {
+                    if (R <= 211.50) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.43) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (B <= 123.50) {
+                    if (B <= 118.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    return 3;
+                  }
+                }
+              } else {
+                if (R <= 216.50) {
+                  if (B <= 128.50) {
+                    if (G <= 163.50) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    return 2;
+                  }
+                } else {
+                  if (B <= 129.50) {
+                    if (R_Ratio <= 0.43) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.43) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  } else {
+    if (B <= 75.50) {
+      if (G <= 101.50) {
+        if (R <= 143.50) {
+          if (R_Ratio <= 0.51) {
+            if (G <= 90.50) {
+              if (B <= 50.50) {
+                if (R_Ratio <= 0.51) {
+                  return 2;
+                } else {
+                  return 3;
+                }
+              } else {
+                if (R_Ratio <= 0.51) {
+                  if (G <= 83.50) {
+                    if (R <= 139.50) {
+                      return 3;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R <= 135.00) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  }
+                } else {
+                  return 2;
+                }
+              }
+            } else {
+              return 2;
+            }
+          } else {
+            if (R <= 131.50) {
+              if (R_Ratio <= 0.51) {
+                return 2;
+              } else {
+                if (R_Ratio <= 0.53) {
+                  if (G <= 69.50) {
+                    if (B <= 43.50) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (R <= 123.00) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  }
+                } else {
+                  return 2;
+                }
+              }
+            } else {
+              if (B <= 52.50) {
+                if (B <= 50.50) {
+                  return 2;
+                } else {
+                  if (B <= 51.50) {
+                    if (R_Ratio <= 0.51) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    return 2;
+                  }
+                }
+              } else {
+                if (R <= 141.50) {
+                  if (R_Ratio <= 0.52) {
+                    if (R_Ratio <= 0.51) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    return 3;
+                  }
+                } else {
+                  return 2;
+                }
+              }
+            }
+          }
+        } else {
+          if (B <= 66.50) {
+            if (B <= 64.50) {
+              if (R <= 146.50) {
+                if (R_Ratio <= 0.51) {
+                  if (R_Ratio <= 0.50) {
+                    if (G <= 90.50) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R <= 145.50) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (R_Ratio <= 0.51) {
+                    return 2;
+                  } else {
+                    return 2;
+                  }
+                }
+              } else {
+                if (R <= 150.50) {
+                  if (G <= 93.50) {
+                    if (R <= 148.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.49) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  }
+                } else {
+                  if (B <= 62.50) {
+                    return 2;
+                  } else {
+                    if (B <= 63.50) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  }
+                }
+              }
+            } else {
+              if (R_Ratio <= 0.48) {
+                return 1;
+              } else {
+                if (G <= 96.50) {
+                  return 1;
+                } else {
+                  if (G <= 97.50) {
+                    return 2;
+                  } else {
+                    if (G <= 99.50) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                }
+              }
+            }
+          } else {
+            if (R_Ratio <= 0.47) {
+              if (R_Ratio <= 0.47) {
+                return 2;
+              } else {
+                if (R_Ratio <= 0.47) {
+                  if (B <= 71.50) {
+                    return 1;
+                  } else {
+                    return 3;
+                  }
+                } else {
+                  return 2;
+                }
+              }
+            } else {
+              if (B <= 67.50) {
+                if (R <= 153.50) {
+                  return 3;
+                } else {
+                  if (R <= 154.50) {
+                    return 2;
+                  } else {
+                    return 1;
+                  }
+                }
+              } else {
+                if (G <= 100.50) {
+                  if (R <= 159.50) {
+                    return 3;
+                  } else {
+                    if (B <= 72.50) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  }
+                } else {
+                  if (R <= 158.50) {
+                    if (R <= 156.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (B <= 73.00) {
+                      return 3;
+                    } else {
+                      return 3;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else {
+        if (B <= 67.50) {
+          if (R <= 158.50) {
+            if (B <= 66.50) {
+              return 2;
+            } else {
+              if (R <= 154.50) {
+                return 1;
+              } else {
+                return 2;
+              }
+            }
+          } else {
+            if (R <= 159.50) {
+              return 1;
+            } else {
+              return 2;
+            }
+          }
+        } else {
+          if (R <= 164.50) {
+            if (R_Ratio <= 0.47) {
+              if (R_Ratio <= 0.47) {
+                if (B <= 74.50) {
+                  if (G <= 105.00) {
+                    return 1;
+                  } else {
+                    return 1;
+                  }
+                } else {
+                  if (R_Ratio <= 0.46) {
+                    return 2;
+                  } else {
+                    return 1;
+                  }
+                }
+              } else {
+                if (R_Ratio <= 0.47) {
+                  if (G <= 112.50) {
+                    return 2;
+                  } else {
+                    if (R_Ratio <= 0.47) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (B <= 72.50) {
+                    return 1;
+                  } else {
+                    if (R <= 162.00) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  }
+                }
+              }
+            } else {
+              if (R <= 160.50) {
+                if (B <= 71.50) {
+                  if (G <= 103.50) {
+                    if (R <= 158.50) {
+                      return 2;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (B <= 69.00) {
+                      return 1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                } else {
+                  return 2;
+                }
+              } else {
+                if (R <= 162.50) {
+                  return 2;
+                } else {
+                  if (R <= 163.50) {
+                    return 1;
+                  } else {
+                    return 2;
+                  }
+                }
+              }
+            }
+          } else {
+            if (G <= 108.50) {
+              if (G <= 107.50) {
+                return 1;
+              } else {
+                if (R_Ratio <= 0.48) {
+                  return 1;
+                } else {
+                  return 2;
+                }
+              }
+            } else {
+              if (R_Ratio <= 0.47) {
+                return 1;
+              } else {
+                return 2;
+              }
+            }
+          }
+        }
+      }
+    } else {
+      if (G <= 119.50) {
+        if (B <= 86.50) {
+          if (R_Ratio <= 0.46) {
+            return 1;
+          } else {
+            if (G <= 116.50) {
+              if (R_Ratio <= 0.48) {
+                if (R_Ratio <= 0.47) {
+                  if (B <= 77.50) {
+                    if (R <= 160.50) {
+                      return 3;
+                    } else {
+                      return 1;
+                    }
+                  } else {
+                    if (R <= 159.50) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  }
+                } else {
+                  if (B <= 83.50) {
+                    if (R_Ratio <= 0.47) {
+                      return 3;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    if (R_Ratio <= 0.47) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  }
+                }
+              } else {
+                return 1;
+              }
+            } else {
+              if (R <= 173.50) {
+                return 2;
+              } else {
+                if (R_Ratio <= 0.47) {
+                  if (G <= 118.50) {
+                    if (G <= 117.50) {
+                      return 3;
+                    } else {
+                      return 3;
+                    }
+                  } else {
+                    return 2;
+                  }
+                } else {
+                  return 2;
+                }
+              }
+            }
+          }
+        } else {
+          if (R_Ratio <= 0.46) {
+            if (R <= 180.50) {
+              if (R <= 177.50) {
+                if (B <= 90.50) {
+                  if (R <= 175.00) {
+                    return 3;
+                  } else {
+                    if (R_Ratio <= 0.46) {
+                      return 2;
+                    } else {
+                      return 3;
+                    }
+                  }
+                } else {
+                  return 2;
+                }
+              } else {
+                if (R <= 179.50) {
+                  return 3;
+                } else {
+                  if (B <= 90.50) {
+                    return 2;
+                  } else {
+                    return 3;
+                  }
+                }
+              }
+            } else {
+              if (R <= 184.00) {
+                return 2;
+              } else {
+                return 1;
+              }
+            }
+          } else {
+            if (B <= 88.50) {
+              if (R_Ratio <= 0.48) {
+                if (R_Ratio <= 0.46) {
+                  return 2;
+                } else {
+                  return 2;
+                }
+              } else {
+                return 1;
+              }
+            } else {
+              if (G <= 115.00) {
+                return 1;
+              } else {
+                if (G <= 117.50) {
+                  return 3;
+                } else {
+                  if (R_Ratio <= 0.47) {
+                    return 2;
+                  } else {
+                    return 2;
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else {
+        if (R <= 181.50) {
+          if (B <= 89.50) {
+            if (R_Ratio <= 0.46) {
+              return 2;
+            } else {
+              return 2;
+            }
+          } else {
+            if (B <= 90.50) {
+              return 1;
+            } else {
+              return 2;
+            }
+          }
+        } else {
+          if (B <= 97.50) {
+            if (R <= 188.50) {
+              if (R_Ratio <= 0.46) {
+                if (G <= 125.50) {
+                  if (B <= 93.00) {
+                    if (R <= 184.50) {
+                      return 3;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    if (B <= 95.00) {
+                      return 1;
+                    } else {
+                      return 3;
+                    }
+                  }
+                } else {
+                  return 1;
+                }
+              } else {
+                if (G <= 121.50) {
+                  if (B <= 90.50) {
+                    return 3;
+                  } else {
+                    if (G <= 120.50) {
+                      return 2;
+                    } else {
+                      return 2;
+                    }
+                  }
+                } else {
+                  if (R <= 184.50) {
+                    if (R_Ratio <= 0.46) {
+                      return 1;
+                    } else {
+                      return 2;
+                    }
+                  } else {
+                    return 2;
+                  }
+                }
+              }
+            } else {
+              if (R_Ratio <= 0.46) {
+                return 2;
+              } else {
+                return 3;
+              }
+            }
+          } else {
+            if (R_Ratio <= 0.46) {
+              return 2;
+            } else {
+              return 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+ 
+
 }
 ```
 
