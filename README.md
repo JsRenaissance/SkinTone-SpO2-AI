@@ -188,10 +188,11 @@ graph TD
 <br>
 
 💻 8. 아두이노 메인 소스 코드 (Arduino Main Source Code)
+```cpp
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <ArduinoBLE.h> 
+#include <ArduinoBLE.h> // 블루투스 라이브러리 추가
 #include "Adafruit_TCS34725.h"
 #include "MAX30105.h"
 #include "spo2_algorithm.h"
@@ -211,10 +212,10 @@ const int LED_G = 10;
 const int LED_B = 11;
 
 // [BLE 설정]
-BLEService oximeterService("1822"); 
-BLEIntCharacteristic spo2Char("2A5F", BLERead | BLENotify); 
-BLEIntCharacteristic bpmChar("2A37", BLERead | BLENotify); 
-BLEIntCharacteristic tierChar("2A19", BLERead | BLENotify); 
+BLEService oximeterService("1822"); // 산소포화도 서비스 UUID
+BLEIntCharacteristic spo2Char("2A5F", BLERead | BLENotify); // SpO2 특성
+BLEIntCharacteristic bpmChar("2A37", BLERead | BLENotify); // BPM 특성
+BLEIntCharacteristic tierChar("2A19", BLERead | BLENotify); // 피부톤 특성
 
 // [전역 데이터]
 uint32_t irBuffer[100], redBuffer[100];
@@ -237,7 +238,7 @@ void setup() {
   if (!BLE.begin()) {
     Serial.println("BLE 시작 실패!");
   } else {
-    BLE.setLocalName("Smart_Oximeter_AI"); 
+    BLE.setLocalName("Smart_Oximeter_AI"); // 앱에서 보일 이름
     BLE.setAdvertisedService(oximeterService);
     oximeterService.addCharacteristic(spo2Char);
     oximeterService.addCharacteristic(bpmChar);
@@ -251,7 +252,7 @@ void setup() {
 }
 
 void loop() {
-  BLE.poll(); 
+  BLE.poll(); // 블루투스 연결 이벤트 확인
 
   if (digitalRead(BUTTON_PIN) == LOW) {
     delay(300);
@@ -345,11 +346,12 @@ bool measureSpO2() {
     else if(savedSkinTier == 3) finalSpO2 += 3.0;
     if(finalSpO2 > 100) finalSpO2 = 100.0;
     
+    // [데이터 전송 로직] 블루투스가 연결되어 있으면 전송
     if (BLE.connected()) {
       spo2Char.writeValue((int)finalSpO2);
       bpmChar.writeValue((int)heartRate);
       tierChar.writeValue(savedSkinTier);
-      Serial.println("Bluetooth Data Sent.");
+      Serial.println("Bluetooth를 통해 데이터를 전송했습니다.");
     }
 
     showResult(savedSkinTier, finalSpO2, heartRate);
@@ -360,6 +362,7 @@ bool measureSpO2() {
   }
 }
 
+// [나머지 헬퍼 함수들 (결과창, 에러창 등) 기존과 동일]
 void showResult(int tier, float s, int h) {
   setColor(0, 255, 0);
   for(int f=1000; f<2000; f+=200) { tone(BUZZER_PIN, f, 50); delay(60); }
@@ -388,6 +391,7 @@ void showReadyScreen() {
   display.setCursor(25, 20);
   display.println("SYSTEM READY");
   display.setCursor(15, 40);
+  // 블루투스 연결 여부 표시
   if (BLE.connected()) display.println("APP CONNECTED");
   else display.println("PUSH TO MEASURE");
   display.display();
@@ -424,8 +428,7 @@ int predictSkinTier(float R, float G, float B, float R_Ratio) {
     if (R_Ratio > 0.45) return 1;
     else if (R_Ratio > 0.40) return 2;
     else return 3;
-}
-
+}'''
 
 
 
