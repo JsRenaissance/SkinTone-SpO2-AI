@@ -2063,10 +2063,6 @@ int predictSkinTier(float R, float G, float B, float R_Ratio) {
     }
   }
 }
-
- 
-
-}
 ```
 
 
