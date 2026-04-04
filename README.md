@@ -192,32 +192,31 @@ graph TD
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <ArduinoBLE.h> // 블루투스 라이브러리 추가
+#include <ArduinoBLE.h> 
 #include "Adafruit_TCS34725.h"
 #include "MAX30105.h"
 #include "spo2_algorithm.h"
 
-// [OLED 및 센서 설정]
+/* [1. 하드웨어 객체 및 환경 설정] */
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
 MAX30105 particleSensor;
 
-// [핀 설정]
-const int BUTTON_PIN = 2;
-const int BUZZER_PIN = 8;
-const int LED_R = 9;
-const int LED_G = 10;
-const int LED_B = 11;
+const int BUTTON_PIN = 2;  // 측정 시작 버튼
+const int BUZZER_PIN = 8;  // 상태 알림 부저
+const int LED_R = 9;       // 상태 표시 LED (Red)
+const int LED_G = 10;      // 상태 표시 LED (Green)
+const int LED_B = 11;      // 상태 표시 LED (Blue)
 
-// [BLE 설정]
-BLEService oximeterService("1822"); // 산소포화도 서비스 UUID
-BLEIntCharacteristic spo2Char("2A5F", BLERead | BLENotify); // SpO2 특성
-BLEIntCharacteristic bpmChar("2A37", BLERead | BLENotify); // BPM 특성
-BLEIntCharacteristic tierChar("2A19", BLERead | BLENotify); // 피부톤 특성
+/* [2. BLE(Bluetooth) 서비스 및 특성 정의] */
+BLEService oximeterService("1822"); 
+BLEIntCharacteristic spo2Char("2A5F", BLERead | BLENotify);
+BLEIntCharacteristic bpmChar("2A37", BLERead | BLENotify);
+BLEIntCharacteristic tierChar("2A19", BLERead | BLENotify);
 
-// [전역 데이터]
+/* [3. 전역 데이터 변수] */
 uint32_t irBuffer[100], redBuffer[100];
 int32_t spo2, heartRate;
 int8_t validSPO2, validHeartRate;
@@ -234,36 +233,32 @@ void setup() {
   particleSensor.begin(Wire, I2C_SPEED_FAST);
   particleSensor.setup(60, 4, 2, 50, 411, 4096); 
 
-  // [블루투스 초기화]
-  if (!BLE.begin()) {
-    Serial.println("BLE 시작 실패!");
-  } else {
-    BLE.setLocalName("Smart_Oximeter_AI"); // 앱에서 보일 이름
+  // 블루투스 초기화 및 서비스 등록
+  if (BLE.begin()) {
+    BLE.setLocalName("Smart_Oximeter_AI");
     BLE.setAdvertisedService(oximeterService);
     oximeterService.addCharacteristic(spo2Char);
     oximeterService.addCharacteristic(bpmChar);
     oximeterService.addCharacteristic(tierChar);
     BLE.addService(oximeterService);
     BLE.advertise();
-    Serial.println("Bluetooth 서비스 시작됨.");
   }
-
   showReadyScreen();
 }
 
 void loop() {
-  BLE.poll(); // 블루투스 연결 이벤트 확인
-
+  BLE.poll(); // 블루투스 이벤트 상시 확인
   if (digitalRead(BUTTON_PIN) == LOW) {
     delay(300);
     startAdvancedMeasure();
   }
 }
 
+/* [4. 지능형 측정 프로세스 (Sequential Flow)] */
 void startAdvancedMeasure() {
   savedSkinTier = 0;
 
-  // STEP 1: 피부톤 카운트다운 (4초)
+  // STEP 1: 피부톤 센서 이동 카운트다운 (4초)
   for(int i = 4; i > 0; i--) {
     displayCountdown("STEP 1: SKIN TONE", "TOUCH COLOR SENSOR", i);
     setColor(0, 0, 255); tone(BUZZER_PIN, 800, 50); delay(500);
@@ -276,16 +271,16 @@ void startAdvancedMeasure() {
     if (digitalRead(BUTTON_PIN) == LOW) { showReadyScreen(); return; }
   }
   
-  setColor(255, 255, 0); 
-  tone(BUZZER_PIN, 1500, 100); delay(150); tone(BUZZER_PIN, 1500, 100);
+  setColor(255, 255, 0); tone(BUZZER_PIN, 1500, 100); delay(150); tone(BUZZER_PIN, 1500, 100);
 
-  // STEP 2: SpO2 이동 카운트다운 (4초)
+  // STEP 2: SpO2 센서 이동 카운트다운 (4초)
   for(int i = 4; i > 0; i--) {
     displayCountdown("STEP 2: SpO2", "MOVE TO RED SENSOR", i);
     setColor(255, 150, 0); tone(BUZZER_PIN, 800, 50); delay(500);
     setColor(0, 0, 0); delay(500);
   }
 
+  // SpO2 측정 및 AI 보정 루프
   bool spo2Success = false;
   while (!spo2Success) {
     if (measureSpO2()) {
@@ -296,22 +291,12 @@ void startAdvancedMeasure() {
   }
 }
 
-bool measureSkinTone() {
-  uint16_t r, g, b, c;
-  tcs.getRawData(&r, &g, &b, &c);
-  if (c < 50) return false; 
-  float R = (float)r/c*255, G = (float)g/c*255, B = (float)b/c*255;
-  float R_Ratio = R/(R+G+B+0.0001);
-  savedSkinTier = predictSkinTier(R, G, B, R_Ratio);
-  return true;
-}
-
+/* [5. AI 기반 피부톤 판별 및 산소포화도 연산 함수] */
 bool measureSpO2() {
   particleSensor.check();
   particleSensor.clearFIFO(); 
   
-  long irValue = particleSensor.getIR();
-  if (irValue < 20000) { 
+  if (particleSensor.getIR() < 20000) { 
     displayError("FINGER NOT FOUND");
     return false;
   }
@@ -319,118 +304,47 @@ bool measureSpO2() {
   displayStatus("MEASURING SpO2...", "KEEP STILL!", 1);
 
   for (byte i = 0 ; i < 100 ; i++) {
-    int timeout = 0;
+    unsigned long start = millis();
     while (!particleSensor.available()) {
       particleSensor.check();
-      timeout++;
-      if (timeout > 500) { displayError("SENSOR TIMEOUT"); return false; }
-      delay(1);
+      if (millis() - start > 500) { displayError("SENSOR TIMEOUT"); return false; }
     }
     redBuffer[i] = particleSensor.getRed();
     irBuffer[i] = particleSensor.getIR();
     particleSensor.nextSample();
-
-    if (i % 20 == 0) {
-      setColor(255, 150, 0); 
-      tone(BUZZER_PIN, 1000, 20);
-    } else if (i % 20 == 5) {
-      setColor(0, 0, 0);
-    }
+    if (i % 20 == 0) { setColor(255, 150, 0); tone(BUZZER_PIN, 1000, 20); }
+    else if (i % 20 == 5) setColor(0, 0, 0);
   }
 
   maxim_heart_rate_and_oxygen_saturation(irBuffer, 100, redBuffer, &spo2, &validSPO2, &heartRate, &validHeartRate);
 
   if (validSPO2 == 1 && spo2 > 70 && spo2 <= 100) {
     float finalSpO2 = (float)spo2;
+    // [AI 보정 가중치 적용]
     if(savedSkinTier == 2) finalSpO2 += 1.5;
     else if(savedSkinTier == 3) finalSpO2 += 3.0;
     if(finalSpO2 > 100) finalSpO2 = 100.0;
     
-    // [데이터 전송 로직] 블루투스가 연결되어 있으면 전송
+    // BLE 데이터 전송
     if (BLE.connected()) {
       spo2Char.writeValue((int)finalSpO2);
       bpmChar.writeValue((int)heartRate);
       tierChar.writeValue(savedSkinTier);
-      Serial.println("Bluetooth를 통해 데이터를 전송했습니다.");
     }
-
     showResult(savedSkinTier, finalSpO2, heartRate);
     return true;
-  } else {
-    displayError("LOW SIGNAL");
-    return false;
   }
+  return false;
 }
 
-// [나머지 헬퍼 함수들 (결과창, 에러창 등) 기존과 동일]
-void showResult(int tier, float s, int h) {
-  setColor(0, 255, 0);
-  for(int f=1000; f<2000; f+=200) { tone(BUZZER_PIN, f, 50); delay(60); }
-  unsigned long startTime = millis();
-  while (millis() - startTime < 7000) {
-    display.clearDisplay();
-    display.setTextSize(1); display.setCursor(0, 0);
-    display.print("SKIN TIER: "); display.setTextSize(2); display.println(tier);
-    display.drawFastHLine(0, 18, 128, WHITE); 
-    display.setCursor(0, 25); display.setTextSize(2);
-    display.print("SpO2: "); display.print((int)s); display.println("%");
-    display.setTextSize(1); display.setCursor(0, 50);
-    display.print("BPM: "); display.print(h); display.print("  |  NORMAL");
-    display.display();
-    if (digitalRead(BUTTON_PIN) == LOW) { delay(200); break; }
-  }
-  showReadyScreen();
-}
-
-void showReadyScreen() {
-  savedSkinTier = 0;
-  setColor(0, 0, 255);
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(25, 20);
-  display.println("SYSTEM READY");
-  display.setCursor(15, 40);
-  // 블루투스 연결 여부 표시
-  if (BLE.connected()) display.println("APP CONNECTED");
-  else display.println("PUSH TO MEASURE");
-  display.display();
-}
-
-void displayCountdown(String title, String guide, int sec) {
-  display.clearDisplay();
-  display.setTextSize(1); display.setCursor(0, 5); display.println(title);
-  display.setCursor(0, 18); display.println(guide);
-  display.setTextSize(3); display.setCursor(55, 35); display.print(sec);
-  display.display();
-}
-
-void displayStatus(String l1, String l2, int fontSize) {
-  display.clearDisplay();
-  display.setTextSize(fontSize);
-  display.setCursor(0, 15); display.println(l1);
-  display.setCursor(0, 35); display.println(l2);
-  display.display();
-}
-
-void displayError(String msg) {
-  setColor(255, 0, 0); tone(BUZZER_PIN, 300, 500);
-  display.clearDisplay(); display.setTextSize(1);
-  display.setCursor(0, 20); display.println("ERROR:"); display.println(msg);
-  display.display(); delay(1500);
-}
-
-void setColor(int r, int g, int b) {
-  analogWrite(LED_R, r); analogWrite(LED_G, g); analogWrite(LED_B, b);
-}
-
+// AI 피부톤 판별 로직 (Python Decision Tree 이식)
 int predictSkinTier(float R, float G, float B, float R_Ratio) {
-    if (R_Ratio > 0.45) return 1;
-    else if (R_Ratio > 0.40) return 2;
-    else return 3;
+    if (R_Ratio > 0.45) return 1;      // Fair
+    else if (R_Ratio > 0.40) return 2; // Medium
+    else return 3;                     // Dark
 }
 
-<br>
+/* [기타 UI 제어 및 헬퍼 함수 생략...] */
 © 2026 Your Name. All Rights Reserved.
 
 
