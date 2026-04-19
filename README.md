@@ -2065,7 +2065,8 @@ int predictSkinTier(float R, float G, float B, float R_Ratio) {
     }
   }
 }
-</details>  ```
+```
+</details>
 
 <br>
 
@@ -2097,8 +2098,6 @@ int predictSkinTier(float R, float G, float B, float R_Ratio) {
 ### ⚙️ 5. 설정 및 계정 관리 (Settings & Data Privacy)
 * **직관적인 기기 관리:** 불필요한 기능을 배제하고, '프로필 전환'과 '블루투스 기기 재연결'에 집중한 심플한 설정 UI를 구성했습니다.
 * **완전한 데이터 파기 (Cascade Remove):** 단순 로그아웃뿐만 아니라, 백엔드 DB에 종속된 해당 사용자의 모든 측정 데이터까지 한 번에 파기하는 '회원 탈퇴' 기능을 구현하여 개인정보 보호 원칙을 준수했습니다.
-
-
 
 
 
