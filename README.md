@@ -2145,9 +2145,38 @@ int predictSkinTier(float R, float G, float B, float R_Ratio) {
 - **원인:** 초당 수십 번 수신되는 센서 데이터로 인해 `fl_chart` 위젯 트리가 과도하게 리빌드(Rebuild)되어 성능 저하가 발생했습니다.
 - **해결:** 데이터 업데이트 주기를 최적화하고, 화면 이탈 시 `dispose()` 생명주기에서 모든 블루투스 스트림과 타이머 리소스를 해제(`cancel`)하여 메모리 누수와 성능 저하를 방지했습니다.
 
+### 🌐 10. Backend Server (Spring Boot)
 
+안드로이드 앱으로부터 전송된 헬스케어 데이터를 검증하고 영구적으로 적재하는 클라우드 REST API 서버입니다.
 
+### 🛠️ Tech Stack
+- **Framework:** Spring Boot (Java)
+- **Database / ORM:** MySQL, Spring Data JPA
+- **Infrastructure:** AWS EC2
+- **Security:** Spring Security, JWT (JSON Web Token)
 
+### ✨ Core Architecture & Data Pipeline
+- **안전한 데이터 접수처 (RESTful API):** 앱에서 측정이 완료되면 `POST /api/health/record` 엔드포인트를 통해 SpO2, BPM, 피부톤 Tier 데이터를 JSON 형태로 수신하고 검증합니다.
+- **JWT 기반 인가 (Authorization):** 모든 API 요청은 Header의 JWT 토큰을 검증하여, 인가된 유효한 사용자의 데이터만 DB에 적재되도록 보안을 강화했습니다.
+- **DB 스키마 및 연관관계 매핑 (JPA):** `User(회원)`, `Profile(가족 프로필)`, `Measurement(측정 기록)` 간의 1:N 연관관계를 엔티티(Entity)로 완벽히 매핑하여 데이터 무결성을 유지합니다.
+- **클라우드 배포 (AWS EC2):** 시연 및 실제 사용 시 24시간 언제든 앱과 연동될 수 있도록 AWS EC2 가상 서버에 애플리케이션을 배포하여 운용 환경을 구축했습니다.
+
+### 🚀 11. 시작하기 (Getting Started)
+
+본 프로젝트를 로컬 환경에서 실행하기 위한 가이드입니다.
+
+**1. Hardware (Arduino)**
+- `/arduino` 폴더의 스케치 파일을 엽니다.
+- `MAX30105` 및 `Adafruit_TCS34725` 라이브러리를 설치한 후, Arduino UNO R4 WiFi 보드에 업로드합니다.
+
+**2. Backend (Spring Boot)**
+- `/backend` 폴더를 IntelliJ 등의 IDE로 엽니다.
+- `application.yml` 파일에 본인의 MySQL DB 정보를 입력하고 서버를 실행합니다.
+
+**3. Mobile App (Flutter)**
+- `/android` (또는 flutter 프로젝트 루트) 폴더를 열고 `flutter pub get`으로 패키지를 설치합니다.
+- 스마트폰을 연결하여 앱을 빌드합니다. (블루투스 권한 허용 필수)
+- 앱을 실행하고 [기기 찾기 및 연결] 버튼을 눌러 아두이노 보드와 연동합니다.
 
 
 
