@@ -2102,7 +2102,6 @@ int predictSkinTier(float R, float G, float B, float R_Ratio) {
 
 #### 🛠️ Tech Stack
 - **Framework:** Flutter (Dart)
-- **State Management:** [Provider / GetX / Riverpod 중 사용하신 것 입력]
 - **Key Libraries:** `flutter_blue_plus` (BLE 통신), `fl_chart` (데이터 시각화), `flutter_secure_storage` (로컬 보안 암호화), `http` (백엔드 통신)
 
 ---
