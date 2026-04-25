@@ -222,6 +222,9 @@ BLEIntCharacteristic spo2Char("2A5F", BLERead | BLENotify); // SpO2 특성
 BLEIntCharacteristic bpmChar("2A37", BLERead | BLENotify); // BPM 특성
 BLEIntCharacteristic tierChar("2A19", BLERead | BLENotify); // 피부톤 특성
 
+// ⭐ [새로 추가됨] 앱에서 측정 시작 명령을 받을 쓰기 전용 특성 (UUID: FFF1)
+BLEByteCharacteristic commandChar("FFF1", BLEWrite);
+
 // [전역 데이터]
 uint32_t irBuffer[100], redBuffer[100];
 int32_t spo2, heartRate;
@@ -248,6 +251,10 @@ void setup() {
     oximeterService.addCharacteristic(spo2Char);
     oximeterService.addCharacteristic(bpmChar);
     oximeterService.addCharacteristic(tierChar);
+    
+    // ⭐ [새로 추가됨] 서비스에 명령 수신용 특성 추가
+    oximeterService.addCharacteristic(commandChar);
+    
     BLE.addService(oximeterService);
     BLE.advertise();
     Serial.println("Bluetooth 서비스 시작됨.");
@@ -259,9 +266,22 @@ void setup() {
 void loop() {
   BLE.poll(); // 블루투스 연결 이벤트 확인
 
+  // 1. 기존 기기 자체의 물리 버튼 로직
   if (digitalRead(BUTTON_PIN) == LOW) {
     delay(300);
     startAdvancedMeasure();
+  }
+
+  // ⭐ 2. [새로 추가됨] 스마트폰 앱(Flutter)에서 블루투스로 보낸 측정 시작 명령 수신
+  if (commandChar.written()) {
+    if (commandChar.value() == 1) { // 앱에서 숫자 1을 보냈다면
+      Serial.println("앱에서 측정 시작 명령 수신 완료!");
+      
+      // 혹시 모를 중복 실행을 막기 위해 값을 즉시 0으로 초기화
+      commandChar.writeValue(0); 
+      
+      startAdvancedMeasure(); // 즉시 측정 시작
+    }
   }
 }
 
@@ -301,16 +321,20 @@ void startAdvancedMeasure() {
   }
 }
 
+// 오리지널 실전용 피부톤 측정 로직
 bool measureSkinTone() {
   uint16_t r, g, b, c;
   tcs.getRawData(&r, &g, &b, &c);
   if (c < 50) return false; 
   float R = (float)r/c*255, G = (float)g/c*255, B = (float)b/c*255;
   float R_Ratio = R/(R+G+B+0.0001);
+  
+  // 머신러닝 기반 판별 함수 호출
   savedSkinTier = predictSkinTier(R, G, B, R_Ratio);
   return true;
 }
 
+// 오리지널 실전용 산소포화도 알고리즘 로직
 bool measureSpO2() {
   particleSensor.check();
   particleSensor.clearFIFO(); 
@@ -343,10 +367,13 @@ bool measureSpO2() {
     }
   }
 
+  // 실제 라이브러리 연산 수행
   maxim_heart_rate_and_oxygen_saturation(irBuffer, 100, redBuffer, &spo2, &validSPO2, &heartRate, &validHeartRate);
 
   if (validSPO2 == 1 && spo2 > 70 && spo2 <= 100) {
     float finalSpO2 = (float)spo2;
+    
+    // 피부톤 보정
     if(savedSkinTier == 2) finalSpO2 += 1.5;
     else if(savedSkinTier == 3) finalSpO2 += 3.0;
     if(finalSpO2 > 100) finalSpO2 = 100.0;
@@ -356,7 +383,7 @@ bool measureSpO2() {
       spo2Char.writeValue((int)finalSpO2);
       bpmChar.writeValue((int)heartRate);
       tierChar.writeValue(savedSkinTier);
-      Serial.println("Bluetooth를 통해 데이터를 전송했습니다.");
+      Serial.println("Bluetooth를 통해 실측 데이터를 전송했습니다.");
     }
 
     showResult(savedSkinTier, finalSpO2, heartRate);
@@ -367,7 +394,7 @@ bool measureSpO2() {
   }
 }
 
-// [나머지 헬퍼 함수들 (결과창, 에러창 등) 기존과 동일]
+// [나머지 헬퍼 함수들]
 void showResult(int tier, float s, int h) {
   setColor(0, 255, 0);
   for(int f=1000; f<2000; f+=200) { tone(BUZZER_PIN, f, 50); delay(60); }
@@ -430,7 +457,7 @@ void setColor(int r, int g, int b) {
 }
 
 int predictSkinTier(float R, float G, float B, float R_Ratio) {
-     if (R_Ratio <= 0.46) {
+  if (R_Ratio <= 0.46) {
     if (R_Ratio <= 0.43) {
       if (G <= 163.50) {
         if (R <= 202.50) {
@@ -442,9 +469,6 @@ int predictSkinTier(float R, float G, float B, float R_Ratio) {
                 } else {
                   return 2;
                 }
-              } else {
-                return 1;
-              }
             } else {
               if (G <= 156.50) {
                 if (R <= 195.00) {
