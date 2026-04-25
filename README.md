@@ -176,7 +176,7 @@ graph TD
 
 <br>
 
-## 📂 7. 프로젝트 파일 구성 (Repository Structure)
+### 📂 7. 프로젝트 파일 구성 (Repository Structure)
 
 * main.py: AI 모델 학습 및 전처리 통합 스크립트.
 * requirements.txt: 프로젝트 실행을 위한 Python 라이브러리 목록.
@@ -189,7 +189,7 @@ graph TD
 
 <br>
 
-## 💻 8. 아두이노 메인 소스 코드 (Arduino Main Source Code)
+### 💻 8. 아두이노 메인 소스 코드 (Arduino Main Source Code)
 <details>
 <summary><b>8. 아두이노 메인 소스 코드 (클릭해서 펼쳐보기)</b></summary>
     
