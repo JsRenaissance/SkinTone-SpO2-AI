@@ -189,7 +189,7 @@ graph TD
 
 <br>
 
-💻 8. 아두이노 메인 소스 코드 (Arduino Main Source Code)
+## 💻 8. 아두이노 메인 소스 코드 (Arduino Main Source Code)
 <details>
 <summary><b>8. 아두이노 메인 소스 코드 (클릭해서 펼쳐보기)</b></summary>
     
@@ -2096,7 +2096,7 @@ int predictSkinTier(float R, float G, float B, float R_Ratio) {
 
 <br>
 
-## 📱 Mobile App (Flutter) : Smart Monitor & Data Hub
+## 📱9. Mobile App (Flutter) : Smart Monitor & Data Hub
 
 스마트폰 앱은 아두이노(Edge AI)에서 연산된 데이터를 단순히 수신하고 시각화하는 것을 넘어, 하드웨어를 직접 제어하는 **'양방향 모니터이자 데이터 허브'** 역할을 수행합니다. 통신 안정성을 확보하고, 사용자 친화적인 UX를 제공하기 위해 다음과 같은 핵심 아키텍처와 기능들을 구현했습니다.
 
